@@ -1,26 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {NetworkSettings} from "./components/NetworkSettings";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const ipAddressAutoString = "Obtain an IP address automatically (DHCP/BootP)";
+export const ipAddressUseString = "Use the following IP address:";
+export const dnsAddressAutoString = "Obtain DNS server address automatically";
+export const dnsAddressUseString = "Use the following DS server address:";
 
-export default App;
+export const App = () => {
+
+    return <NetworkSettings/>
+};
+
+
+
+
