@@ -5,12 +5,11 @@ import Radio from "@material-ui/core/Radio";
 import s from "../App.module.css";
 import {ErrorMessage, Field} from "formik";
 import {validateGateway, validateIP, validateMask} from "../assets/validates";
-import {ipAddressAutoString, ipAddressUseString} from "../App";
-
+import {ipAddressAutoString, ipAddressUseString} from "./NetworkSettings";
 
 export const IpSettings = ({
                                onChange, ipAddress, subnetMask, defaultGateway, setting, disabledWireless,
-                               disabled, setDisabled, value, setValue, setErrors, setFieldValue
+                               disabled, setDisabled, value, setValue, setFieldValue, setFieldError,
                            }) => {
 
     const handleChange = (event) => {
@@ -26,12 +25,14 @@ export const IpSettings = ({
                                       label={ipAddressAutoString}
                                       onClick={() => {
                                           setDisabled(true);
+
                                           setFieldValue(`${setting}.ipAddress`, '');
                                           setFieldValue(`${setting}.subnetMask`, '');
                                           setFieldValue(`${setting}.defaultGateway`, '');
-                                          setTimeout(() => {
-                                              setErrors({});
-                                          }, 0);
+
+                                          setFieldError(`${setting}.ipAddress`, '');
+                                          setFieldError(`${setting}.subnetMask`, '');
+                                          setFieldError(`${setting}.defaultGateway`, '');
                                       }}
                                       disabled={disabledWireless}/>
                     <FormControlLabel value={ipAddressUseString}
@@ -83,7 +84,6 @@ export const IpSettings = ({
                            value={defaultGateway}
                            validate={!disabled ? validateGateway : null}
                            disabled={disabled}/>
-
                 </div>
             </div>
         </>

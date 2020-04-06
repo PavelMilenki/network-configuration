@@ -4,9 +4,15 @@ import {Form, Formik} from "formik";
 import {EthernetSettings} from "./EthernetSettings";
 import {WirelessSettings} from "./WirelessSettings";
 import {Buttons} from "./Buttons";
-import {dnsAddressAutoString, ipAddressAutoString} from "../App";
 
-export const NetworkSettings = ()=> {
+export const ipAddressAutoString = "Obtain an IP address automatically (DHCP/BootP)";
+export const ipAddressUseString = "Use the following IP address:";
+export const dnsAddressAutoString = "Obtain DNS server address automatically";
+export const dnsAddressUseString = "Use the following DS server address:";
+const ethernetSettings = 'ethernetSettings';
+const wirelessSettings = 'wirelessSettings';
+
+export const NetworkSettings = () => {
 
     const [disabledEthernetIp, setDisabledEthernetIp] = useState(true);
     const [valueEthernetIp, setValueEthernetIp] = useState(ipAddressAutoString);
@@ -54,10 +60,9 @@ export const NetworkSettings = ()=> {
                 onSubmit={values => {
                     console.log('SETTINGS:', JSON.stringify([values], null, 2))
                 }}
-                validateOnChange={true}
-                validateOnBlur={true}
-                validateOnMount={true}>
-                {({handleSubmit, handleChange, values, errors, handleReset, touched,setErrors,setFieldValue}) => (
+                validateOnChange={false}
+                validateOnBlur={false}>
+                {({handleSubmit, handleChange, values, handleReset, setFieldValue, setFieldError}) => (
                     <Form onSubmit={handleSubmit} className={s.form}>
                         <div className={s.settingsContainer}>
                             <EthernetSettings onChange={handleChange}
@@ -70,13 +75,13 @@ export const NetworkSettings = ()=> {
                                               setDisabledEthernetIp={setDisabledEthernetIp}
                                               valueEthernetIp={valueEthernetIp}
                                               setValueEthernetIp={setValueEthernetIp}
-                                              setting={'ethernetSettings'}
+                                              setting={ethernetSettings}
                                               valueEthernetDns={valueEthernetDns}
                                               setValueEthernetDns={setValueEthernetDns}
                                               disabledEthernetDns={disabledEthernetDns}
                                               setDisabledEthernetDns={setDisabledEthernetDns}
-                                              setErrors={setErrors}
-                                              setFieldValue={setFieldValue}/>
+                                              setFieldValue={setFieldValue}
+                                              setFieldError={setFieldError}/>
 
                             <WirelessSettings onChange={handleChange}
                                               wirelessNetworkName={values.wirelessSettings.wirelessNetworkName}
@@ -86,7 +91,7 @@ export const NetworkSettings = ()=> {
                                               defaultGateway={values.wirelessSettings.defaultGateway}
                                               preferredDNS={values.wirelessSettings.preferredDNS}
                                               alternativeDNS={values.wirelessSettings.alternativeDNS}
-                                              setting={'wirelessSettings'}
+                                              setting={wirelessSettings}
                                               disabledKey={disabledKey}
                                               setDisabledKey={setDisabledKey}
                                               disabledWireless={disabledWireless}
@@ -99,11 +104,11 @@ export const NetworkSettings = ()=> {
                                               setValueWirelessDns={setValueWirelessDns}
                                               disabledWirelessDns={disabledWirelessDns}
                                               setDisabledWirelessDns={setDisabledWirelessDns}
-                                              setErrors={setErrors}
+                                              setFieldError={setFieldError}
                                               setFieldValue={setFieldValue}/>
 
                         </div>
-                        <Buttons errors={errors} handleReset={handleReset} touched={touched}
+                        <Buttons handleReset={handleReset}
                                  setDisabledEthernetIp={setDisabledEthernetIp}
                                  setValueEthernetIp={setValueEthernetIp}
                                  setValueEthernetDns={setValueEthernetDns}
@@ -114,7 +119,6 @@ export const NetworkSettings = ()=> {
                                  setValueWirelessIp={setValueWirelessIp}
                                  setValueWirelessDns={setValueWirelessDns}
                                  setDisabledWirelessDns={setDisabledWirelessDns}/>
-
                     </Form>
                 )}
             </Formik>

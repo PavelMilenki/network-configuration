@@ -1,27 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import s from "../App.module.css";
 import Button from "@material-ui/core/Button";
-import _ from "lodash";
-import {dnsAddressAutoString, ipAddressAutoString} from "../App";
+import {dnsAddressAutoString, ipAddressAutoString} from "./NetworkSettings";
 
 export const Buttons = ({
-                            errors, handleReset, touched, setDisabledEthernetIp, setValueEthernetIp,
+                            handleReset, setDisabledEthernetIp, setValueEthernetIp,
                             setValueEthernetDns, setDisabledEthernetDns, setDisabledKey,
                             setDisabledWireless, setDisabledWirelessIp, setValueWirelessIp,
-                            setValueWirelessDns, setDisabledWirelessDns
+                            setValueWirelessDns, setDisabledWirelessDns,
                         }) => {
-    const [message, setMessage] = useState('');
 
     return (
         <div className={s.buttons}>
             <Button type='submit'
                     variant="contained"
                     size="small"
-                    color="primary"
-                    onClick={() => {
-                        setMessage('your settings are saved')
-                    }}
-                    disabled={!_.isEmpty(errors) && !_.isEmpty(touched)}>
+                    color="primary">
                 Save
             </Button>
             <Button type='button'
@@ -40,11 +34,10 @@ export const Buttons = ({
                         setValueWirelessDns(dnsAddressAutoString);
                         setDisabledWirelessDns(true);
                         handleReset();
-                        setMessage('your settings are reset(or redirect)')
                     }}>
                 Cancel
             </Button>
-            <span className={s.message}>{message}</span>
+
         </div>
     )
 };

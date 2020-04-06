@@ -8,11 +8,10 @@ import {DNSSettings} from "./DNSSettings";
 export const WirelessSettings = (
     {
         onChange, wirelessNetworkName, securityKey, ipAddress,
-        subnetMask, defaultGateway, preferredDNS, alternativeDNS,setting,disabledKey, setDisabledKey,
-        disabledWireless,changeDisabled,disabledWirelessIp,setDisabledWirelessIp,valueWirelessIp,setValueWirelessIp,
-        valueWirelessDns,setValueWirelessDns,disabledWirelessDns,setDisabledWirelessDns,setErrors,setFieldValue
+        subnetMask, defaultGateway, preferredDNS, alternativeDNS, setting, disabledKey, setDisabledKey,
+        disabledWireless, changeDisabled, disabledWirelessIp, setDisabledWirelessIp, valueWirelessIp, setValueWirelessIp,
+        valueWirelessDns, setValueWirelessDns, disabledWirelessDns, setDisabledWirelessDns, setFieldValue, setFieldError
     }) => {
-
 
 
     return (
@@ -28,7 +27,7 @@ export const WirelessSettings = (
                                     changeDisabled={changeDisabled}
                                     disabledKey={disabledKey}
                                     setDisabledKey={setDisabledKey}
-                                    setErrors={setErrors}
+                                    setFieldError={setFieldError}
                                     setFieldValue={setFieldValue}
                                     setDisabledWirelessIp={setDisabledWirelessIp}
                                     setDisabledWirelessDns={setDisabledWirelessDns}
@@ -45,7 +44,7 @@ export const WirelessSettings = (
                         setDisabled={setDisabledWirelessIp}
                         value={valueWirelessIp}
                         setValue={setValueWirelessIp}
-                        setErrors={setErrors}
+                        setFieldError={setFieldError}
                         setFieldValue={setFieldValue}/>
             <DNSSettings onChange={onChange}
                          preferredDNS={preferredDNS}
@@ -56,7 +55,7 @@ export const WirelessSettings = (
                          setDisabled={setDisabledWirelessDns}
                          value={valueWirelessDns}
                          setValue={setValueWirelessDns}
-                         setErrors={setErrors}
+                         setFieldError={setFieldError}
                          setFieldValue={setFieldValue}/>
         </div>
     )

@@ -4,22 +4,19 @@ import s from "../App.module.css";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import {ErrorMessage, Field} from "formik";
 import {validateKey, validateNetworkName} from "../assets/validates";
-import {dnsAddressAutoString, ipAddressAutoString} from "../App";
-
+import {dnsAddressAutoString, ipAddressAutoString} from "./NetworkSettings";
 
 export const EnableWirelessSettings = ({
                                            onChange, wirelessNetworkName, securityKey, setting, disabled, changeDisabled,
-                                           disabledKey, setDisabledKey, setErrors, setFieldValue, setDisabledWirelessIp,
-                                           setDisabledWirelessDns, setValueWirelessIp, setValueWirelessDns
+                                           disabledKey, setDisabledKey, setFieldValue, setDisabledWirelessIp,
+                                           setDisabledWirelessDns, setValueWirelessIp, setValueWirelessDns, setFieldError
                                        }) => {
 
-
-    const changeDisabledKey = () => {
+       const changeDisabledKey = () => {
         if (disabledKey) {
             setDisabledKey(false)
         } else {
             setDisabledKey(true);
-            setErrors(null)
         }
     };
     return (
@@ -30,11 +27,21 @@ export const EnableWirelessSettings = ({
                           id={'enableWifi'}
                           onClick={() => {
                               changeDisabled();
+
                               setDisabledKey(true);
                               setDisabledWirelessIp(true);
                               setDisabledWirelessDns(true);
                               setValueWirelessIp(ipAddressAutoString);
                               setValueWirelessDns(dnsAddressAutoString);
+
+                              setFieldError(`${setting}.securityKey`, '');
+                              setFieldError(`${setting}.wirelessNetworkName`, '');
+                              setFieldError(`${setting}.ipAddress`, '');
+                              setFieldError(`${setting}.subnetMask`, '');
+                              setFieldError(`${setting}.defaultGateway`, '');
+                              setFieldError(`${setting}.preferredDNS`, '');
+                              setFieldError(`${setting}.alternativeDNS`, '');
+
                               setFieldValue(`${setting}.securityKey`, '');
                               setFieldValue(`${setting}.wirelessNetworkName`, '');
                               setFieldValue(`${setting}.ipAddress`, '');
@@ -42,15 +49,11 @@ export const EnableWirelessSettings = ({
                               setFieldValue(`${setting}.defaultGateway`, '');
                               setFieldValue(`${setting}.preferredDNS`, '');
                               setFieldValue(`${setting}.alternativeDNS`, '');
-                              setTimeout(() => {
-                                  setErrors({})
-                              }, 0);
                           }} checked={!disabled}/>
                 <label htmlFor={'enableWifi'}>Enable wifi:</label>
             </div>
             <ErrorMessage component="div" name={`${setting}.wirelessNetworkName`} className={s.error}/>
             <div className={s.wirelessNetworkName}>
-
                 <div>
                     <label className={`${s.labelForInputs} ${disabled === true ? s.disabled : ''}`}>
                         Wireless Network Name: <span className={s.star}>*</span>
@@ -72,7 +75,7 @@ export const EnableWirelessSettings = ({
                     <button className={`${s.btnRefresh}  ${disabled === true ? s.btnDisabled : ''}`} type="button"
                             disabled={disabled}
                             onClick={() => {
-
+                                console.log('search')
                             }}>
                         <RefreshIcon color="primary" variant="outlined" size="small"/>
                     </button>
@@ -86,15 +89,12 @@ export const EnableWirelessSettings = ({
                           checked={!disabledKey}
                           onClick={() => {
                               changeDisabledKey();
+                              setFieldError(`${setting}.securityKey`, '');
                               setFieldValue(`${setting}.securityKey`, '');
-                              setTimeout(() => {
-                                  setErrors({})
-                              }, 0);
                           }}/>
                 <label htmlFor={'security'} className={`${disabled === true ? s.disabled : ''}`}>
                     Enable Wireless Security:</label>
             </div>
-
             <div className={s.securityKey}>
                 <ErrorMessage component="span" name={`${setting}.securityKey`} className={s.error}/>
                 <label className={`${s.labelForInputs} ${disabledKey === true ? s.disabled : ''}`}

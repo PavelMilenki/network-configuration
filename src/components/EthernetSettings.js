@@ -6,8 +6,8 @@ import {DNSSettings} from "./DNSSettings";
 export const EthernetSettings = ({
                                      onChange, ipAddress, subnetMask, defaultGateway, preferredDNS, alternativeDNS,
                                      disabledEthernetIp, setDisabledEthernetIp, valueEthernetIp, setValueEthernetIp,
-                                     setting,  setValueEthernetDns, disabledEthernetDns,
-                                     setDisabledEthernetDns, valueEthernetDns,setErrors,setFieldValue
+                                     setting, setValueEthernetDns, disabledEthernetDns, setDisabledEthernetDns,
+                                     valueEthernetDns, setFieldValue, setFieldError
                                  }) => {
 
     return (
@@ -24,8 +24,8 @@ export const EthernetSettings = ({
                         setDisabled={setDisabledEthernetIp}
                         value={valueEthernetIp}
                         setValue={setValueEthernetIp}
-                        setErrors={setErrors}
-                        setFieldValue={setFieldValue}/>
+                        setFieldValue={setFieldValue}
+                        setFieldError={setFieldError}/>
 
             <DNSSettings onChange={onChange}
                          preferredDNS={preferredDNS}
@@ -35,8 +35,8 @@ export const EthernetSettings = ({
                          setDisabled={setDisabledEthernetDns}
                          value={valueEthernetDns}
                          setValue={setValueEthernetDns}
-                         setErrors={setErrors}
-                         setFieldValue={setFieldValue}/>
+                         setFieldValue={setFieldValue}
+                         setFieldError={setFieldError}/>
         </div>
     )
 };

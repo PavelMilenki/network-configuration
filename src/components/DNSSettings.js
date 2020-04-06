@@ -5,12 +5,11 @@ import Radio from "@material-ui/core/Radio";
 import s from "../App.module.css";
 import {ErrorMessage, Field} from "formik";
 import {validateDNSAlternative, validateDNSPreferred} from "../assets/validates";
-import {dnsAddressAutoString, dnsAddressUseString} from "../App";
-
+import {dnsAddressAutoString, dnsAddressUseString} from "./NetworkSettings";
 
 export const DNSSettings = ({
                                 onChange, preferredDNS, alternativeDNS, setting, disabledWireless, disabled,
-                                setDisabled, value, setValue, setErrors, setFieldValue
+                                setDisabled, value, setValue, setFieldValue, setFieldError,
                             }) => {
 
     const handleChange = (event) => {
@@ -25,11 +24,12 @@ export const DNSSettings = ({
                                       label={dnsAddressAutoString}
                                       onClick={() => {
                                           setDisabled(true);
+
                                           setFieldValue(`${setting}.preferredDNS`, '');
                                           setFieldValue(`${setting}.alternativeDNS`, '');
-                                          setTimeout(() => {
-                                              setErrors({})
-                                          }, 0);
+
+                                          setFieldError(`${setting}.preferredDNS`, '');
+                                          setFieldError(`${setting}.alternativeDNS`, '');
                                       }}
                                       disabled={disabledWireless}/>
                     <FormControlLabel value={dnsAddressUseString}
